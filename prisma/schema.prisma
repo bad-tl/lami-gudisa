@@ -1,0 +1,258 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model about {
+  createdAt          DateTime @default(now()) @db.Timestamptz(6)
+  educationSummary   String?
+  fullDescription    String?
+  id                 String   @id
+  imagePublicId      String?
+  imageUrl           String?
+  location           String?
+  organization       String?
+  position           String?
+  shortDescription   String?
+  status             String   @default("DRAFT")
+  title              String
+  yearsOfExperience  String?
+  updatedAt          DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([status], map: "about_status_idx_e98638ab")
+}
+model account {
+  accessToken           String?
+  accessTokenExpiresAt  DateTime? @db.Timestamptz(6)
+  accountId             String
+  createdAt             DateTime  @default(now()) @db.Timestamptz(6)
+  id                    String    @id
+  idToken               String?
+  issuer                String
+  password              String?
+  providerId            String
+  refreshToken          String?
+  refreshTokenExpiresAt DateTime? @db.Timestamptz(6)
+  scope                 String?
+  updatedAt             DateTime  @default(now()) @db.Timestamptz(6)
+  userId                String
+
+  user user @relation(fields: [userId],references: [id],onDelete: Cascade,onUpdate: NoAction)
+
+  @@unique([issuer, accountId])
+  @@index([userId], map: "account_userId_idx_a489d58a")
+}
+
+model cV {
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  fileName  String
+  fileUrl   String
+  id        String   @id
+  isActive  Boolean  @default(false)
+  publicId  String
+  title     String
+  updatedAt DateTime @default(now()) @db.Timestamptz(6)
+  version   String?
+
+  @@index([isActive], map: "cV_isActive_idx_77fe3ba1")
+}
+
+model certificate {
+  createdAt     DateTime  @default(now()) @db.Timestamptz(6)
+  credentialId  String?
+  credentialUrl String?
+  description   String?
+  id            String    @id
+  imagePublicId String?
+  imageUrl      String?
+  issueDate     DateTime? @db.Timestamptz(6)
+  issuer        String?
+  sortOrder     Int       @default(0)
+  status        String    @default("DRAFT")
+  title         String
+  updatedAt     DateTime  @default(now()) @db.Timestamptz(6)
+
+  @@index([status, sortOrder], map: "certificate_status_sortOrder_idx_f274e6a2")
+}
+
+model contact {
+  availability String?
+  createdAt    DateTime @default(now()) @db.Timestamptz(6)
+  description  String?
+  email        String?
+  id           String   @id
+  location     String?
+  phone        String?
+  status       String   @default("PUBLISHED")
+  updatedAt    DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([status], map: "contact_status_idx_e98638ab")
+}
+
+model experience {
+  achievements   String?
+  company        String
+  createdAt      DateTime  @default(now()) @db.Timestamptz(6)
+  description    String?
+  employmentType String?
+  endDate        DateTime? @db.Timestamptz(6)
+  id             String    @id
+  isCurrent      Boolean   @default(false)
+  location       String?
+  position       String
+  sortOrder      Int       @default(0)
+  startDate      DateTime  @db.Timestamptz(6)
+  status         String    @default("DRAFT")
+  updatedAt      DateTime  @default(now()) @db.Timestamptz(6)
+
+  @@index([status, sortOrder], map: "experience_status_sortOrder_idx_f274e6a2")
+}
+
+model education {
+  id          String   @id
+  institution String
+  degree      String
+  field       String?
+  description String?
+  location    String?
+  startDate   DateTime
+  endDate     DateTime?
+  isCurrent   Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  status      String   @default("DRAFT")
+  createdAt   DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([status, sortOrder], map: "education_status_sortOrder_idx_f274e6a2")
+}
+
+model gallery {
+  category      String?
+  createdAt     DateTime @default(now()) @db.Timestamptz(6)
+  description   String?
+  id            String   @id
+  imagePublicId String
+  imageUrl      String
+  sortOrder     Int      @default(0)
+  status        String   @default("DRAFT")
+  title         String
+  updatedAt     DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([status, sortOrder], map: "gallery_status_sortOrder_idx_f274e6a2")
+}
+
+model hero {
+  createdAt           DateTime @default(now()) @db.Timestamptz(6)
+  description         String?
+  eyebrow             String?
+  headline            String
+  id                  String   @id
+  imagePublicId       String?
+  imageUrl            String?
+  name                String
+  primaryButtonText   String?
+  primaryButtonUrl    String?
+  secondaryButtonText String?
+  secondaryButtonUrl  String?
+  sortOrder           Int      @default(0)
+  status              String   @default("DRAFT")
+  title               String
+  updatedAt           DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([status], map: "hero_status_idx_e98638ab")
+}
+
+model message {
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  email     String
+  id        String   @id
+  isRead    Boolean  @default(false)
+  message   String
+  name      String
+  subject   String?
+  updatedAt DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([isRead, createdAt], map: "message_isRead_createdAt_idx_d92e2f02")
+}
+
+model session {
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  expiresAt DateTime @db.Timestamptz(6)
+  id        String   @id
+  ipAddress String?
+  token     String   @unique
+  updatedAt DateTime @default(now()) @db.Timestamptz(6)
+  userAgent String?
+  userId    String
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([userId], map: "session_userId_idx_a489d58a")
+}
+
+model siteSettings {
+  createdAt       DateTime @default(now()) @db.Timestamptz(6)
+  defaultOgImage  String?
+  faviconUrl      String?
+  id              String   @id
+  keywords        String?
+  logoUrl         String?
+  siteDescription String?
+  siteName        String
+  siteTitle       String?
+  updatedAt       DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model skill {
+  category  String?
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  icon      String?
+  id        String   @id
+  level     Int?
+  name      String
+  sortOrder Int      @default(0)
+  status    String   @default("DRAFT")
+  updatedAt DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([status, sortOrder], map: "skill_status_sortOrder_idx_f274e6a2")
+}
+
+model socialLink {
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  icon      String?
+  id        String   @id
+  label     String?
+  platform  String
+  sortOrder Int      @default(0)
+  status    String   @default("PUBLISHED")
+  updatedAt DateTime @default(now()) @db.Timestamptz(6)
+  url       String
+
+  @@index([status, sortOrder], map: "socialLink_status_sortOrder_idx_f274e6a2")
+}
+
+model user {
+  createdAt     DateTime  @default(now()) @db.Timestamptz(6)
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  id            String    @id
+  image         String?
+  name          String
+  updatedAt     DateTime  @default(now()) @db.Timestamptz(6)
+  account       account[]
+  session       session[]
+}
+
+model verification {
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+  expiresAt  DateTime @db.Timestamptz(6)
+  id         String   @id
+  identifier String
+  updatedAt  DateTime @default(now()) @db.Timestamptz(6)
+  value      String
+
+  @@index([identifier], map: "verification_identifier_idx_79a0dbb3")
+}

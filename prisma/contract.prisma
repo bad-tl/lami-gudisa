@@ -1,0 +1,229 @@
+model User {
+  id            String   @id
+  name          String
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+
+  sessions Session[]
+  accounts Account[]
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  ipAddress String?
+  userAgent String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Account {
+  id                   String   @id
+  accountId            String
+  providerId           String
+  userId               String
+  accessToken          String?
+  refreshToken         String?
+  idToken              String?
+  accessTokenExpiresAt DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                String?
+  password             String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+
+  @@index([identifier])
+}
+
+model Hero {
+  id                  String   @id @default(uuid())
+  eyebrow             String?
+  name                String
+  title               String
+  headline            String
+  description         String?
+  primaryButtonText   String?
+  primaryButtonUrl    String?
+  secondaryButtonText String?
+  secondaryButtonUrl  String?
+  imageUrl            String?
+  imagePublicId       String?
+  status              String   @default("DRAFT")
+  sortOrder           Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @default(now())
+
+  @@index([status])
+}
+
+model About {
+  id               String   @id @default(uuid())
+  title            String
+  shortDescription String?
+  fullDescription  String?
+  imageUrl         String?
+  imagePublicId    String?
+  status           String   @default("DRAFT")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now())
+
+  @@index([status])
+}
+
+model Experience {
+  id             String    @id @default(uuid())
+  company        String
+  position       String
+  location       String?
+  employmentType String?
+  startDate      DateTime
+  endDate        DateTime?
+  isCurrent      Boolean   @default(false)
+  description    String?
+  achievements   String?
+  sortOrder      Int       @default(0)
+  status         String    @default("DRAFT")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now())
+
+  @@index([status, sortOrder])
+}
+
+
+model Skill {
+  id        String   @id @default(uuid())
+  name      String
+  category  String?
+  level     Int?
+  icon      String?
+  sortOrder Int      @default(0)
+  status    String   @default("DRAFT")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([status, sortOrder])
+}
+
+model Gallery {
+  id            String   @id @default(uuid())
+  title         String
+  description   String?
+  imageUrl      String
+  imagePublicId String
+  category      String?
+  sortOrder     Int      @default(0)
+  status        String   @default("DRAFT")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+
+  @@index([status, sortOrder])
+}
+
+model Certificate {
+  id            String   @id @default(uuid())
+  title         String
+  issuer        String?
+  issueDate     DateTime?
+  credentialId  String?
+  credentialUrl String?
+  imageUrl      String?
+  imagePublicId String?
+  description   String?
+  sortOrder     Int      @default(0)
+  status        String   @default("DRAFT")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+
+  @@index([status, sortOrder])
+}
+
+model Contact {
+  id           String   @id @default(uuid())
+  email        String?
+  phone        String?
+  location     String?
+  availability String?
+  description  String?
+  status       String   @default("PUBLISHED")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+
+  @@index([status])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([isRead, createdAt])
+}
+
+model SocialLink {
+  id        String   @id @default(uuid())
+  platform  String
+  label     String?
+  url       String
+  icon      String?
+  sortOrder Int      @default(0)
+  status    String   @default("PUBLISHED")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([status, sortOrder])
+}
+
+model CV {
+  id        String   @id @default(uuid())
+  title     String
+  fileUrl   String
+  publicId  String
+  fileName  String
+  version   String?
+  isActive  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([isActive])
+}
+
+model SiteSettings {
+  id              String   @id @default(uuid())
+  siteName        String
+  siteTitle       String?
+  siteDescription String?
+  keywords        String?
+  faviconUrl      String?
+  logoUrl         String?
+  defaultOgImage  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+}

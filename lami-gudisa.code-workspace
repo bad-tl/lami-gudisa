@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "lami-gudisa",
+			"path": "."
+		},
+		{
+			"name": "transport",
+			"path": "../transport"
+		}
+	],
+	"settings": {}
+}
