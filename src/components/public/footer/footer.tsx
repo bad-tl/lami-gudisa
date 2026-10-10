@@ -81,7 +81,7 @@ export default function Footer({ data }: FooterProps) {
         {/* Brand */}
         <div className="flex flex-col items-center pt-16 text-center sm:pt-20">
           <p className="font-serif text-4xl font-medium tracking-[0.04em] sm:text-2xl lg:text-3xl">
-            LAMI GUDISA
+            LEMI GUDISA
           </p>
 
           <p className="mt-3 text-xs font-medium tracking-[0.12em] text-white/60 sm:text-sm sm:tracking-[0.16em]">

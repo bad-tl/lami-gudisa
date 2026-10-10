@@ -26,16 +26,17 @@ const heroSerif = Cormorant_Garamond({
 
 
 
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://lemigudisa.vercel.app"),
 
   title: {
-    default: "Lami Gudisa | Accountant & Controller Officer",
-    template: "%s | Lami Gudisa",
+    default: "Lemi Gudisa | Accountant & Controller Officer",
+    template: "%s | Lemi Gudisa",
   },
 
   description:
-    "Discover Lami Gudisa's professional portfolio, featuring accounting and finance experience, financial reporting, budgeting, bookkeeping, and financial management in Ethiopia.",
+    "Explore Lemi Gudisa's professional portfolio, featuring accounting and finance experience, financial reporting, budgeting, bookkeeping, and financial management in Ethiopia.",
 
   alternates: {
     canonical: "/",
@@ -57,20 +58,21 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://lemigudisa.vercel.app/",
-    siteName: "Lami Gudisa",
-    title: "Lami Gudisa | Accountant & Controller Officer",
+    siteName: "Lemi Gudisa",
+    title: "Lemi Gudisa | Accountant & Controller Officer",
     description:
-      "Explore Lami Gudisa's accounting and finance experience, professional skills, education, and certificates.",
-    locale: "en_US",
+      "Explore Lemi Gudisa's accounting and finance experience, professional skills, education, and certificates.",
+    locale: "en_ET",
   },
 
   twitter: {
     card: "summary",
-    title: "Lami Gudisa | Accountant & Controller Officer",
+    title: "Lemi Gudisa | Accountant & Controller Officer",
     description:
-      "Professional portfolio of Lami Gudisa, an accounting and finance professional in Ethiopia.",
+      "Professional portfolio of Lemi Gudisa, an accounting and finance professional in Ethiopia.",
   },
 };
+
 
 
 
