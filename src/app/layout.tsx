@@ -24,11 +24,16 @@ const heroSerif = Cormorant_Garamond({
   weight: ["500", "600", "700"],
 });
 
+
 export const metadata: Metadata = {
   title: "Lami Gudisa | Accountant & Controller Officer",
   description:
     "Professional portfolio of Lami Gudisa, an Accountant & Controller Officer with 4+ years of experience in accounting and finance.",
+  verification: {
+    google: "-hXFajTY5zrolCj8oCKNt9IYEmzB1itiNMpoJgPGFTI",
+  },
 };
+
 
 export default function RootLayout({
   children,
