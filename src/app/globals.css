@@ -207,3 +207,24 @@
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Discourage casual copying on public portfolio pages */
+body.public-copy-protection-active {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body.public-copy-protection-active img {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+/* Keep form fields usable if a public page has any */
+body.public-copy-protection-active input,
+body.public-copy-protection-active textarea,
+body.public-copy-protection-active [contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}

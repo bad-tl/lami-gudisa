@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import PublicCopyProtection from "@/components/public-copy-protection";
 import {
   Cormorant_Garamond,
   Geist,
@@ -86,9 +87,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${heroSerif.variable} antialiased`}
       >
-        <ThemeProvider>
-          <TooltipProvider>{children}</TooltipProvider>
-        </ThemeProvider>
+       <ThemeProvider>
+  <TooltipProvider>
+    <PublicCopyProtection />
+    {children}
+  </TooltipProvider>
+</ThemeProvider>
       </body>
     </html>
   );
